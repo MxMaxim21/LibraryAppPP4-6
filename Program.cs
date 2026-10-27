@@ -14,12 +14,17 @@ namespace LibraryApp
             Library.AddBook(new Book { Id = 1, Title = "Идиот", Author = "Достоевский", IsAvaible = true });
             Library.AddBook(new Book { Id = 2, Title = "Ромео и Джульетта", Author = "Шекспир", IsAvaible = false });
             Library.AddBook(new Book { Id = 3, Title = "Гадкий утенок", Author = "Андерсен", IsAvaible = true });
-
+            
+            //Positiv
             Library.BorrowBook(1);
-            Library.BorrowBook(2);
-
             Library.ReturnBook(2);
+            Library.FindBook(3);
+
+            //Negativ
+            Library.BorrowBook(4);
             Library.BorrowBook(1);
+            Library.ReturnBook(3);
+
         }
     }
 }

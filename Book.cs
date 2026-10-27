@@ -25,25 +25,41 @@ namespace LibraryApp
         public void BorrowBook(int id)
         {
             var book = FindBook(id);
+
             if (book == null)
-                Console.WriteLine($"\nКнига \"{book.Title}\" не найдена в библиотеке.");
-            if (book.IsAvaible == false)
-                Console.WriteLine($"\nКнига \"{book.Title}\" не доступна.");
-            else
-                Console.WriteLine($"\nВам выдана книга \"{book.Title}\"");
-                book.IsAvaible = false;
+            {
+                Console.WriteLine($"\nКнига с ID {id} не найдена в библиотеке.");
+                return;
+            }
+
+            if (!book.IsAvaible)
+            {
+                Console.WriteLine($"\nКнига \"{book.Title}\" уже занята и недоступна.");
+                return;
+            }
+
+            book.IsAvaible = false;
+            Console.WriteLine($"\nВам успешно выдана книга \"{book.Title}\".");
         }
 
         public void ReturnBook(int id)
         {
             var book = FindBook(id);
+
             if (book == null)
-                Console.WriteLine($"\nКнига \"{book.Title}\" не найдена в библиотеке.");
-            if (book.IsAvaible == true)
-                Console.WriteLine($"\nКнига \"{book.Title}\" уже доступна.");
-            else
-                Console.WriteLine($"\nВы вернули книгу \"{book.Title}\"");
-                book.IsAvaible = true;
+            {
+                Console.WriteLine($"\nКнига с ID {id} не найдена в библиотеке.");
+                return;
+            }
+
+            if (book.IsAvaible)
+            {
+                Console.WriteLine($"\nКнига \"{book.Title}\" уже находится в библиотеке (её никто не брал).");
+                return;
+            }
+
+            book.IsAvaible = true;
+            Console.WriteLine($"\nВы успешно вернули книгу \"{book.Title}\".");
         }
 
         public Book FindBook(int id)
