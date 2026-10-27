@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryApp
 {
@@ -10,21 +6,32 @@ namespace LibraryApp
     {
         static void Main(string[] args)
         {
-            var Library = new Book();
-            Library.AddBook(new Book { Id = 1, Title = "Идиот", Author = "Достоевский", IsAvaible = true });
-            Library.AddBook(new Book { Id = 2, Title = "Ромео и Джульетта", Author = "Шекспир", IsAvaible = false });
-            Library.AddBook(new Book { Id = 3, Title = "Гадкий утенок", Author = "Андерсен", IsAvaible = true });
-            
-            //Positiv
-            Library.BorrowBook(1);
-            Library.ReturnBook(2);
-            Library.FindBook(3);
+            var library = new Library();
 
-            //Negativ
-            Library.BorrowBook(4);
-            Library.BorrowBook(1);
-            Library.ReturnBook(3);
+            library.AddBook(new Book { Id = 1, Title = "Идиот", Author = "Достоевский" });
+            library.AddBook(new Book { Id = 2, Title = "Ромео и Джульетта", Author = "Шекспир", IsAvailable = false });
+            library.AddBook(new Book { Id = 3, Title = "Гадкий утенок", Author = "Андерсен" });
 
+            library.BorrowBook(1);
+            library.ReturnBook(2);
+
+            var found = library.FindBook(3);
+            Console.WriteLine($"\nНайдена книга: {found?.Title}");
+
+            library.BorrowBook(4);   
+            library.BorrowBook(1);   
+            library.ReturnBook(3);   
+
+            try
+            {
+                library.AddBook(null);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine($"\nОшибка добавления: {ex.ParamName} не может быть null.");
+            }
+
+            Console.ReadKey();
         }
     }
 }
