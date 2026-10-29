@@ -31,7 +31,7 @@ namespace LibraryApp
                 Console.WriteLine($"\nОшибка добавления: {ex.ParamName} не может быть null.");
             }
 
-            Console.ReadKey();
+            Console.ReadKey();  
         }
     }
 }
